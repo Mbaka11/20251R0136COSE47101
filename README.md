@@ -9,7 +9,6 @@ We apply concepts from the course such as:
 
 - **Classification** (Logistic Regression, Decision Trees, SVM, etc.)
 - **Pattern Mining** (FP-Growth, Association Rules)
-- *(Optional)* Outlier Detection and Clustering
 
 ---
 
@@ -35,8 +34,8 @@ weather-disease-prediction/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/weather-disease-prediction.git
-cd weather-disease-prediction
+git clone https://github.com/Mbaka11/20251R0136COSE47101
+cd 20251R0136COSE47101
 ```
 
 ### 2. Set Up Virtual Environment
