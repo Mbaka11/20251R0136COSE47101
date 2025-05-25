@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 700px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "lightblue", "id": "chest_pain", "label": "chest_pain", "shape": "dot"}, {"color": "orange", "id": "prognosis_Heart Attack", "label": "prognosis_Heart Attack", "shape": "dot"}, {"color": "lightblue", "id": "high_blood_pressure", "label": "high_blood_pressure", "shape": "dot"}, {"color": "lightblue", "id": "high_blood_pressure, chest_pain", "label": "high_blood_pressure, chest_pain", "shape": "dot"}, {"color": "lightblue", "id": "hiv_aids, chest_pain", "label": "hiv_aids, chest_pain", "shape": "dot"}, {"color": "lightblue", "id": "hiv_aids, high_blood_pressure", "label": "hiv_aids, high_blood_pressure", "shape": "dot"}, {"color": "lightblue", "id": "hiv_aids, high_blood_pressure, chest_pain", "label": "hiv_aids, high_blood_pressure, chest_pain", "shape": "dot"}, {"color": "lightblue", "id": "headache, hiv_aids", "label": "headache, hiv_aids", "shape": "dot"}, {"color": "orange", "id": "prognosis_Migraine", "label": "prognosis_Migraine", "shape": "dot"}, {"color": "lightblue", "id": "knee_ache", "label": "knee_ache", "shape": "dot"}, {"color": "orange", "id": "prognosis_Arthritis", "label": "prognosis_Arthritis", "shape": "dot"}, {"color": "lightblue", "id": "diarrhea", "label": "diarrhea", "shape": "dot"}, {"color": "orange", "id": "prognosis_Malaria", "label": "prognosis_Malaria", "shape": "dot"}, {"color": "lightblue", "id": "headache, hiv_aids, vomiting", "label": "headache, hiv_aids, vomiting", "shape": "dot"}, {"color": "lightblue", "id": "trouble_seeing", "label": "trouble_seeing", "shape": "dot"}, {"color": "orange", "id": "prognosis_Stroke", "label": "prognosis_Stroke", "shape": "dot"}, {"color": "lightblue", "id": "back_pain", "label": "back_pain", "shape": "dot"}, {"color": "lightblue", "id": "weakness", "label": "weakness", "shape": "dot"}, {"color": "lightblue", "id": "hiv_aids, vomiting", "label": "hiv_aids, vomiting", "shape": "dot"}, {"color": "lightblue", "id": "facial_pain", "label": "facial_pain", "shape": "dot"}, {"color": "orange", "id": "prognosis_Sinusitis", "label": "prognosis_Sinusitis", "shape": "dot"}, {"color": "lightblue", "id": "sneezing", "label": "sneezing", "shape": "dot"}, {"color": "orange", "id": "prognosis_Common Cold", "label": "prognosis_Common Cold", "shape": "dot"}, {"color": "lightblue", "id": "reduced_smell_and_taste", "label": "reduced_smell_and_taste", "shape": "dot"}, {"color": "lightblue", "id": "rapid_heart_rate", "label": "rapid_heart_rate", "shape": "dot"}, {"color": "orange", "id": "prognosis_Heat Stroke", "label": "prognosis_Heat Stroke", "shape": "dot"}, {"color": "lightblue", "id": "headache, vomiting", "label": "headache, vomiting", "shape": "dot"}, {"color": "lightblue", "id": "sinus_headache", "label": "sinus_headache", "shape": "dot"}, {"color": "lightblue", "id": "skin_irritation", "label": "skin_irritation", "shape": "dot"}, {"color": "orange", "id": "prognosis_Eczema", "label": "prognosis_Eczema", "shape": "dot"}, {"color": "lightblue", "id": "vomiting", "label": "vomiting", "shape": "dot"}, {"color": "lightblue", "id": "itchiness", "label": "itchiness", "shape": "dot"}, {"color": "lightblue", "id": "nasal_polyps", "label": "nasal_polyps", "shape": "dot"}, {"color": "lightblue", "id": "swollen_glands", "label": "swollen_glands", "shape": "dot"}, {"color": "lightblue", "id": "confusion", "label": "confusion", "shape": "dot"}, {"color": "lightblue", "id": "fatigue, diarrhea", "label": "fatigue, diarrhea", "shape": "dot"}, {"color": "lightblue", "id": "confusion, nausea", "label": "confusion, nausea", "shape": "dot"}, {"color": "lightblue", "id": "headache, pain_behind_the_eyes, hiv_aids", "label": "headache, pain_behind_the_eyes, hiv_aids", "shape": "dot"}, {"color": "lightblue", "id": "headache, pain_behind_the_eyes", "label": "headache, pain_behind_the_eyes", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "chest_pain", "title": "Confidence: 1.00", "to": "prognosis_Heart Attack"}, {"arrows": "to", "from": "high_blood_pressure", "title": "Confidence: 1.00", "to": "prognosis_Heart Attack"}, {"arrows": "to", "from": "high_blood_pressure, chest_pain", "title": "Confidence: 1.00", "to": "prognosis_Heart Attack"}, {"arrows": "to", "from": "hiv_aids, chest_pain", "title": "Confidence: 1.00", "to": "prognosis_Heart Attack"}, {"arrows": "to", "from": "hiv_aids, high_blood_pressure", "title": "Confidence: 1.00", "to": "prognosis_Heart Attack"}, {"arrows": "to", "from": "hiv_aids, high_blood_pressure, chest_pain", "title": "Confidence: 1.00", "to": "prognosis_Heart Attack"}, {"arrows": "to", "from": "headache, hiv_aids", "title": "Confidence: 1.00", "to": "prognosis_Migraine"}, {"arrows": "to", "from": "knee_ache", "title": "Confidence: 1.00", "to": "prognosis_Arthritis"}, {"arrows": "to", "from": "diarrhea", "title": "Confidence: 1.00", "to": "prognosis_Malaria"}, {"arrows": "to", "from": "headache, hiv_aids, vomiting", "title": "Confidence: 1.00", "to": "prognosis_Migraine"}, {"arrows": "to", "from": "trouble_seeing", "title": "Confidence: 1.00", "to": "prognosis_Stroke"}, {"arrows": "to", "from": "back_pain", "title": "Confidence: 1.00", "to": "prognosis_Arthritis"}, {"arrows": "to", "from": "weakness", "title": "Confidence: 1.00", "to": "prognosis_Stroke"}, {"arrows": "to", "from": "hiv_aids, vomiting", "title": "Confidence: 0.93", "to": "prognosis_Migraine"}, {"arrows": "to", "from": "facial_pain", "title": "Confidence: 1.00", "to": "prognosis_Sinusitis"}, {"arrows": "to", "from": "sneezing", "title": "Confidence: 1.00", "to": "prognosis_Common Cold"}, {"arrows": "to", "from": "reduced_smell_and_taste", "title": "Confidence: 1.00", "to": "prognosis_Sinusitis"}, {"arrows": "to", "from": "rapid_heart_rate", "title": "Confidence: 1.00", "to": "prognosis_Heat Stroke"}, {"arrows": "to", "from": "headache, vomiting", "title": "Confidence: 0.87", "to": "prognosis_Migraine"}, {"arrows": "to", "from": "sinus_headache", "title": "Confidence: 1.00", "to": "prognosis_Sinusitis"}, {"arrows": "to", "from": "skin_irritation", "title": "Confidence: 1.00", "to": "prognosis_Eczema"}, {"arrows": "to", "from": "vomiting", "title": "Confidence: 0.66", "to": "prognosis_Migraine"}, {"arrows": "to", "from": "itchiness", "title": "Confidence: 1.00", "to": "prognosis_Eczema"}, {"arrows": "to", "from": "nasal_polyps", "title": "Confidence: 1.00", "to": "prognosis_Sinusitis"}, {"arrows": "to", "from": "swollen_glands", "title": "Confidence: 0.83", "to": "prognosis_Arthritis"}, {"arrows": "to", "from": "confusion", "title": "Confidence: 0.62", "to": "prognosis_Heat Stroke"}, {"arrows": "to", "from": "fatigue, diarrhea", "title": "Confidence: 1.00", "to": "prognosis_Malaria"}, {"arrows": "to", "from": "confusion, nausea", "title": "Confidence: 1.00", "to": "prognosis_Heat Stroke"}, {"arrows": "to", "from": "headache, pain_behind_the_eyes, hiv_aids", "title": "Confidence: 1.00", "to": "prognosis_Migraine"}, {"arrows": "to", "from": "headache, pain_behind_the_eyes", "title": "Confidence: 1.00", "to": "prognosis_Migraine"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
