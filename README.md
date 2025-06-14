@@ -21,8 +21,8 @@ weather-disease-prediction/
 │   └── processed/           # Cleaned/engineered dataset
 ├── notebooks/               # Jupyter Notebooks (EDA, modeling, etc.)
 ├── src/                     # Python scripts for modular code
-├── reportLink/              # Link to the report
 ├── report/                  # Output plots and result summaries
+├── reportLink/              # Link to the report
 ├── requirements.txt         # Python dependencies
 └── README.md                # Project overview and instructions
 ```
