@@ -1,0 +1,12 @@
+diagnosis,antecedents,consequents,support,confidence,lift
+Sinusitis,"runny_nose, sinus_headache",prognosis_Sinusitis,0.018670949608512347,1.0,16.548172757475083
+Arthritis,"back_pain, fatigue",prognosis_Arthritis,0.012447299739008232,1.0,16.548172757475083
+Dengue,"joint_pain, severe_headache",prognosis_Dengue,0.013250351335073279,1.0,16.17207792207792
+Common Cold,"sneezing, headache",prognosis_Common Cold,0.012848825537040755,1.0,16.119741100323626
+Eczema,skin_irritation,prognosis_Eczema,0.03212206384260189,1.0,16.016077170418008
+Stroke,"confusion, severe_headache",prognosis_Stroke,0.012246536839991969,1.0,15.96474358974359
+Malaria,"fatigue, diarrhea",prognosis_Malaria,0.024894599478016463,1.0,15.614420062695926
+Heat Stroke,"nausea, dizziness, rapid_heart_rate",prognosis_Heat Stroke,0.013852640032122063,1.0,15.421052631578949
+Influenza,"fever, headache",prognosis_Influenza,0.012648062638024492,1.0,7.8813291139240516
+Migraine,"headache, hiv_aids, pain_behind_the_eyes, vomiting",prognosis_Migraine,0.06384260188717125,1.0,5.552954292084727
+Heart Attack,"high_blood_pressure, hiv_aids, chest_pain",prognosis_Heart Attack,0.1335073278458141,1.0,5.145661157024794
