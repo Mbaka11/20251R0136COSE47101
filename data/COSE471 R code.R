@@ -1,0 +1,38 @@
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Read the CSV file
+df <- read.csv("cleaned_data.csv")  # replace with "data2.csv" if needed
+
+# View the first few rows
+head(df)
+
+# Summary statistics
+summary(df)
+
+# If you want means and SDs for all numeric variables
+numeric_df <- df %>% select(where(is.numeric))
+descriptive_stats <- data.frame(
+  Mean = sapply(numeric_df, mean),
+  SD = sapply(numeric_df, sd),
+  Min = sapply(numeric_df, min),
+  Max = sapply(numeric_df, max)
+)
+print(round(descriptive_stats, 3))
+
+# Histogram of a specific variable (Age)
+
+ggplot(df, aes(x = Age)) +
+  geom_histogram(binwidth = 0.05, fill = "steelblue", color = "black") +
+  labs(title = "Histogram of Age", x = "Age (normalized)", y = "Frequency") +
+  theme_minimal()
+
+
+#4. Prognosis count bar plot
+
+ggplot(df, aes(x = prognosis)) +
+  geom_bar(fill = "tomato", color = "black") +
+  labs(title = "Count of Prognosis Types", x = "Prognosis", y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
